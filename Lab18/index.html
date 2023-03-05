@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+<input type="button" value="GET TEACHERS" onclick="getTeachers()">
+<div id="teachers"></div>
+<br/><br/>
+<label for="teacher">teacher</label><input type="text" id="teacher"/><br/><br/>
+<label for="teacherName">teacher name</label><input type="text" id="teacherName"/><br/><br/>
+<label for="pulpit">pulpit</label><input type="text" id="pulpit"/><br/><br/>
+<input type="button" value="ADD TEACHER" onclick="addTeacher()">
+<br/><br/>
+<label for="teacher">teacher</label><input type="text" id="updateTeacher"/><br/><br/>
+<label for="teacherName">teacher name</label><input type="text" id="updateTeacherName"/><br/><br/>
+<label for="pulpit">pulpit</label><input type="text" id="updatePulpit"/><br/><br/>
+<input type="button" value="UPDATE TEACHER" onclick="updateTeacher()">
+<br/><br/>
+<label for="teacher">teacher</label><input type="text" id="deleteTeacherr"/><br/><br/>
+<input type="button" value="DELETE TEACHER" onclick="deleteTeacher()">
+<script>
+
+    function getTeachers() {
+        let teachersHTML = document.getElementById("teachers");
+        fetch('http://localhost:3000/api/teachers', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(teachers => {
+            teachers.forEach(teacher => {
+                teachersHTML.innerHTML += '<h5>TEACHER: ' + teacher.teacher+ ' ||  TEACHER NAME: ' + teacher.teacher_name+' ||  PULPIT: ' + teacher.pulpit + '</h5>';
+            })
+        })
+    }
+    function addTeacher() {
+        let teacher = document.getElementById("teacher").value;
+        let teacherName = document.getElementById("teacherName").value;
+        let pulpit = document.getElementById("pulpit").value;
+        if(teacher && teacherName && pulpit) {
+            console.log('111111111')
+            fetch('http://localhost:3000/api/teachers', {
+                method: 'POST',
+                body: JSON.stringify({teacher: teacher, teacher_name: teacherName, pulpit: pulpit}),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(res => res.json() )
+                .then(mes => console.log(mes))
+                .catch(err => console.log(err));
+        }
+    }
+    function updateTeacher() {
+        let teacher = document.getElementById("updateTeacher").value;
+        console.log(teacher);
+        console.log('aaaaaaaa');
+        let teacherName = document.getElementById("updateTeacherName").value;
+        console.log(teacherName);
+        let pulpit = document.getElementById("updatePulpit").value;
+        console.log(pulpit);
+        if(teacher && teacherName && pulpit) {
+            fetch('http://localhost:3000/api/teachers', {
+                method: 'PUT',
+                body: JSON.stringify({teacher: teacher, teacher_name: teacherName, pulpit: pulpit}),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(res => res.json() )
+            .then(mes => console.log(mes))
+                .catch(err => console.log(err));
+        }
+    }
+    function deleteTeacher() {
+        let teacher = document.getElementById("deleteTeacherr").value;
+        if(teacher) {
+            console.log('delete');
+            fetch(`http://localhost:3000/api/teachers/${teacher}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(res => res.json() )
+                .then(mes => console.log(mes))
+                .catch(err => console.log(err));
+        }
+    }
+</script>
+</body>
+</html>
