@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>List of tours</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <a href="/tours/addTour">Add Tour</a>
+    </br>
+    <h1>List of tours</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>IDCountry</th>
+            <th>IDOperator</th>
+            <th>tourname</th>
+            <th>descr</th>
+        </tr>
+        {{#each tours}}
+        <tr>
+            <td>{{this.idtours}}</td>
+            <td>{{this.idcountry}}</td>
+            <td>{{this.idoperator}}</td>
+            <td>{{this.tourname}}</td>
+            <td>{{this.descr}}</td>
+            <td><a href="/tours/{{this.idtours}}">Details</a></td>
+            <td><a href="/tours/updateTour/{{this.idtours}}">Update</a></td>
+            <td><input type="button" onclick="deleteTourById({{this.idtours}})" value="Delete" /> </td>
+        </tr>
+        {{/each}}
+    </table>
+    <a href="/operators">GO TO LIST OF OPERATORS</a>
+    </br>
+    <a href="/countries">GO TO LIST OF COUNTRIES</a>
+    </br>
+</body>
+
+<script>
+    function deleteTourById(id) {
+        return fetch(`/tours/${id}`, {
+            method: 'DELETE'
+        }).then(response => location.reload())
+    }
+</script>
+<html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Operator</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <h1>Add Operator</h1>
+    <label>Operator</label>
+    <input id="operatorInput" name="name" value="" /><br><br>
+    <label>Phone</label>
+    <input id="phoneInput" name="phonenumber" value="" /><br><br>
+    <button onclick="addOperator()">Add</button>
+    <a href="/operators">To list of operators</a>
+    <script>
+        function addOperator() {
+            try {
+                const name = document.getElementById("operatorInput").value;
+                const phonenumber = document.getElementById("phoneInput").value;
+
+                fetch(`/operators/`, {
+                    method: "POST",
+                    body: JSON.stringify({ name, phonenumber }),
+                    headers: { "Content-Type": "application/json" }
+                })
+                    .then(response => {
+                        console.log('here')
+                        return response.json()
+                    })
+                    .then(data => {
+                        console.log(data);
+                        alert("Operator added successfully!");
+                        window.location.href = "/operators";
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("Failed to add operator");
+                    });
+            }
+            catch (e) {
+                console.log(e)
+            }
+        } 
+    </script>
+</body>
+<html>

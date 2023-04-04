@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Update</title>
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <h1>Update voucher</h1>
+  <label>ID</label>
+  <input id="idvoucher" name="idvoucher" value="{{voucher.idvoucher}}" /><br><br>
+  <label>Tour Id</label>
+  <input id="idtour" name="idtour" value="{{voucher.idtour}}" /><br><br>
+  <label>Vouchername </label>
+  <input id="vouchername" name="vouchername" value="{{voucher.vouchername}}" /><br><br>
+  <label>descr</label>
+  <input id="descr" name="descr" value="{{voucher.descr}}" /><br><br>
+  <label>price</label>
+  <input id="price" name="price" value="{{voucher.price}}" /><br><br>
+  <label>numberofpeople</label>
+  <input id="numberofpeople" name="numberofpeople" value="{{voucher.numberofpeople}}" /><br><br>
+  <label>nutrition</label>
+  <input id="nutrition" name="nutrition" value="{{voucher.nutrition}}" /><br><br>
+  <label>accommodation</label>
+  <input id="accommodation" name="accommodation" value="{{voucher.accommodation}}" /><br><br>
+  <label>hot</label>
+  <input id="hot" name="hot" value="{{voucher.hot}}" /><br><br>
+  <label>discount</label>
+  <input id="discount" name="discount" value="{{voucher.discount}}" /><br><br>
+  <button onclick="updateOperator()">Update</button>
+  <a href="/vouchers">Back to List of Vouchers</a>
+
+  <script>
+    function updateOperator() {
+      try {
+        const idvoucher = +document.getElementById("idvoucher").value;
+        const idtour = +document.getElementById("idtour").value;
+        const vouchername = document.getElementById("vouchername").value;
+        const descr = document.getElementById("descr").value;
+        const price = document.getElementById("price").value;
+        const numberofpeople = document.getElementById("numberofpeople").value;
+        const nutrition = document.getElementById("nutrition").value;
+        const accommodation = document.getElementById("accommodation").value;
+        const hot = document.getElementById("hot").value;
+        const discount = document.getElementById("discount").value;
+
+        fetch(`/vouchers/`, {
+          method: "PUT",
+          body: JSON.stringify({
+            idvoucher, idtour,
+            vouchername, descr,
+            price, numberofpeople, 
+            nutrition, accommodation,
+            hot, discount
+          }),
+          headers: { "Content-Type": "application/json" }
+        })
+          .then(response => {
+            console.log('here')
+            return response.json()
+          })
+          .then(data => {
+            console.log(data);
+            alert("Voucher updated successfully!");
+            window.location.href = "/vouchers";
+          })
+          .catch(error => {
+            console.error(error);
+            alert("Failed to update tour");
+          });
+      }
+      catch (e) {
+        console.log(e)
+      }
+    } 
+  </script>
+</body>
+<html>

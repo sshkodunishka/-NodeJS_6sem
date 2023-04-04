@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Update</title>
+    <meta charset="utf-8" />
+</head>
+
+<body> 
+    <h1>Update Tour</h1> 
+        <label>ID</label> 
+        <input id="idtours" name="idtours" value="{{tour.idtours}}" /><br><br> 
+        <label>Country Id</label> 
+        <input id="idcountry" name="idcountry" value="{{tour.idcountry}}" /><br><br> 
+        <label>Operator Id </label> 
+        <input id="idoperator" name="idoperator" value="{{tour.idoperator}}" /><br><br> 
+        <label>Tour Name </label> 
+        <input id="tourname" name="tourname" value="{{tour.tourname}}" /><br><br> 
+        <label>Desctiption</label> 
+        <input id="descr" name="descr" value="{{tour.descr}}" /><br><br> 
+        <button onclick="updateOperator()">Update</button> 
+    <a href="/tours">Back to List of Tours</a> 
+ 
+    <script> 
+        function updateOperator() { 
+          try{
+            const idtours = +document.getElementById("idtours").value; 
+            const idoperator = +document.getElementById("idoperator").value; 
+            const idcountry = +document.getElementById("idcountry").value; 
+            const tourname = document.getElementById("tourname").value; 
+            const descr = document.getElementById("descr").value; 
+ 
+            fetch(`/tours/`, { 
+                method: "PUT", 
+                body: JSON.stringify({ idtours, idoperator, idcountry,  tourname, descr }), 
+                headers: { "Content-Type": "application/json" } 
+            }) 
+            .then(response => {
+              console.log('here')
+              return response.json()
+            }) 
+            .then(data => { 
+                console.log(data); 
+                alert("Tour updated successfully!"); 
+                window.location.href = "/tours"; 
+            }) 
+            .catch(error => { 
+                console.error(error); 
+                alert("Failed to update tour"); 
+            }); 
+          }
+          catch(e){
+            console.log(e)
+          }
+        } 
+    </script> 
+</body>
+<html>

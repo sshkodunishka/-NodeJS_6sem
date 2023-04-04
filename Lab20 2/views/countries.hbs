@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List of countries</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<a href="/countries/addCountry">Add Country</a>
+</br>
+    <h1>List of countries</h1>
+     <table>
+         <tr><th>ID</th><th>Country</th><th>Visa</th></tr>
+         {{#each countries}}
+            <tr>
+                <td>{{this.idcountry}}</td>
+                <td>{{this.country}}</td>
+                <td>{{this.visa}}</td>
+                <td><a href="/countries/{{this.idcountry}}">Details</a></td>
+                <td><a href="/countries/updateCountry/{{this.idcountry}}">Update</a></td>
+                <td><input type="button" onclick="deleteCountryById({{this.idcountry}})" value="Delete" /> </td>
+                </tr>
+         {{/each}}
+     </table>
+<a href="/operators">GO TO LIST OF OPERATORS</a>
+</br>
+<a href="/tours">GO TO LIST OF TOURS</a>
+</br>
+<a href="/vouchers">GO TO LIST OF VOUCHERS</a>
+</br>
+<a href="/orders">GO TO LIST OF ORDERS</a>
+</br>
+</body>
+<script>
+    function deleteCountryById(id) {
+        return fetch(`/countries/${id}`, {
+             method: 'DELETE'
+        }).then(response => location.reload())
+    }
+
+    function updateCountryById(id) {
+        return fetch(`/countries/${id}`, {
+             method: 'DELETE'
+        }).then(response => location.reload())
+    }
+</script>
+<html>

@@ -1,0 +1,18 @@
+version: '4.6.13'
+
+services:
+  postgres_lab:
+    container_name: postgres_lab
+    image: postgres:15
+    env_file:
+      - .local.env
+    ports:
+      - 5432:5432
+    restart: always
+    networks:
+      - joosi
+
+volumes:
+  pgdata:
+networks:
+  joosi:

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Country</title>
+    <meta charset="utf-8" />
+</head>
+
+<body> 
+    <h1>Update Country</h1> 
+        <label>ID</label> 
+        <input id="idInput" name="idcountry" value="{{country.idcountry}}" /><br><br> 
+        <label>Country</label> 
+        <input id="countryInput" name="country" value="{{country.country}}" /><br><br> 
+        <label>Visa</label> 
+        <input id="visaInput" name="visa" value="{{country.visa}}" /><br><br> 
+        <button onclick="updateCountry()">Update</button> 
+    <a href="/countries">Back to List of Countries</a> 
+ 
+    <script> 
+        function updateCountry() { 
+            try{
+            const idcountry = +document.getElementById("idInput").value; 
+            const country = document.getElementById("countryInput").value; 
+            const visa = document.getElementById("visaInput").value; 
+ 
+            fetch(`/countries/`, { 
+                method: "PUT", 
+                body: JSON.stringify({ idcountry, country, visa }), 
+                headers: { "Content-Type": "application/json" } 
+            }) 
+            .then(response => response.json()) 
+            .then(data => { 
+                console.log(data); 
+                alert("Country updated successfully!"); 
+                window.location.href = "/countries"; 
+            }) 
+            .catch(error => { 
+                console.error(error); 
+                alert("Failed to update country"); 
+            }); 
+            }
+            catch(e){
+                console.log(e)
+            }
+        } 
+    </script> 
+</body>
+<html>

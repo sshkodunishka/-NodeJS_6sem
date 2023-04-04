@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+    <div id="pulpits"></div>
+    <br /><br />
+    <div style="display: flex; width: 120px; justify-content: space-between;">
+        <input type="button" value="PREV" onclick="prevWindow()">
+        <div id="page">0</div>
+        <input type="button" value="NEXT" onclick="nextWindow()">
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", getPulpits())
+        function getPulpits() {
+            let pulpitsHTML = document.getElementById("pulpits");
+            let pageNumber = document.getElementById("page").innerHTML
+
+            console.log(pageNumber)
+            fetch(`http://localhost:3000/api/pulpits/ten/${+pageNumber * 10}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+                .then(response => {
+                    return response.json();
+                })
+                .then(pulpits => {
+                    pulpitsHTML.innerHTML = null
+                    pulpits.forEach(pulpit => {
+                        pulpitsHTML.innerHTML += '<h5>PULPIT: ' + pulpit.pulpit + ' ||  PULPIT NAME: ' + pulpit.pulpit_name + ' ||  FACULTY: ' + pulpit.faculty + ' || COUNT OF TEACHERS: ' + pulpit._count.Teacher +'</h5 > ';
+                    })
+                })
+        }
+        function prevWindow() {
+
+            let newPageNumber = document.getElementById("page")
+            if (+newPageNumber.innerHTML === 0) {
+                return
+            }
+            newPageNumber.innerHTML = +newPageNumber.innerHTML - 1
+            getPulpits()
+        }
+        function nextWindow() {
+            let newPageNumber = document.getElementById("page")
+            if (+newPageNumber.innerHTML === 2) {
+                return
+            }
+            newPageNumber.innerHTML = +newPageNumber.innerHTML + 1
+            getPulpits()
+        }
+
+    </script>
+</body>
+
+</html>

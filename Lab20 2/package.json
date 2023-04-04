@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@prisma/client": "^4.11.0",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "hbs": "^4.2.0",
+    "mssql": "^9.1.1",
+    "prisma": "^4.11.0"
+  },
+  "name": "lab20",
+  "version": "1.0.0",
+  "main": "20-01.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

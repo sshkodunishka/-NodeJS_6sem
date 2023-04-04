@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model countries {
+  idcountry Int     @id @default(autoincrement())
+  country   String? @db.VarChar(50)
+  visa      String? @db.Bit(1)
+  tours     tours[]
+}
+
+model orders {
+  idorder   Int       @id @default(autoincrement())
+  idvoucher Int?
+  customer  String?   @db.VarChar(255)
+  pay       String?   @db.Bit(1)
+  vouchers  vouchers? @relation(fields: [idvoucher], references: [idvoucher], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model touroperators {
+  idoperator  Int     @id @default(autoincrement())
+  name        String? @db.VarChar(150)
+  phonenumber String? @db.VarChar(11)
+  tours       tours[]
+}
+
+model tours {
+  idtours       Int            @id @default(autoincrement())
+  idcountry     Int?
+  idoperator    Int?
+  tourname      String?        @db.VarChar(255)
+  descr         String?        @db.VarChar(255)
+  countries     countries?     @relation(fields: [idcountry], references: [idcountry], onDelete: NoAction, onUpdate: NoAction)
+  touroperators touroperators? @relation(fields: [idoperator], references: [idoperator], onDelete: NoAction, onUpdate: NoAction)
+  vouchers      vouchers[]
+}
+
+model vouchers {
+  idvoucher      Int      @id @default(autoincrement())
+  idtour         Int?
+  vouchername    String?  @db.VarChar(255)
+  descr          String?  @db.VarChar(255)
+  price          Decimal? @db.Money
+  numberofpeople Int?
+  nutrition      String?  @db.Bit(1)
+  accommodation  String?  @db.Bit(1)
+  hot            String?  @db.Bit(1)
+  discount       Int?
+  orders         orders[]
+  tours          tours?   @relation(fields: [idtour], references: [idtours], onDelete: NoAction, onUpdate: NoAction)
+}

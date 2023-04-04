@@ -1,0 +1,11 @@
+<div class="phoneBook">
+    {{#each phones}}
+    {{>phone}}
+    {{/each}}
+</div>
+<div class="addContainer">
+    <input type="text" name="full_name" placeholder="fio">
+    <input type="text" name="phonenumber" placeholder="+375123456789">
+    <button type="button" onclick="create()">Add</button>
+    {{{backBtn}}}
+</div>

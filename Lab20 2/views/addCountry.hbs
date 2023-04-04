@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Country</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <h1>Add Country</h1>
+        <label>Country</label>
+        <input name="country" id="country" value="" /><br><br>
+        <label>Visa</label>
+        <input id="visa" name="visa" value="" /><br><br>
+        <button onclick="addCountry()">Add</button>
+        <a href="/countries">To list of countries</a>
+        <script>
+            function addCountry() {
+                try {
+                    const country = document.getElementById("country").value;
+                    const visa = document.getElementById("visa").value;
+
+                    fetch(`/countries/`, {
+                        method: "POST",
+                        body: JSON.stringify({ visa, country }),
+                        headers: { "Content-Type": "application/json" }
+                    })
+                        .then(response => {
+                            return response.json()
+                        })
+                        .then(data => {
+                            alert("Country added successfully!");
+                            window.location.href = "/countries";
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            alert("Failed to add country");
+                        });
+                }
+                catch (e) {
+                    console.log(e)
+                }
+            } 
+        </script>
+</body>
+<html>

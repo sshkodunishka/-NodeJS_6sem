@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>List of vouchers</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <a href="/vouchers/addVoucher">Add voucher</a>
+    </br>
+    <h1>List of vouchers</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Tour Id</th>
+            <th>Name</th>
+            <th>descr</th>
+            <th>price</th>
+            <th>numberofpeople</th>
+            <th>nutrition</th>
+            <th>accommodation</th>
+            <th>hot</th>
+            <th>discount</th>
+        </tr>
+        {{#each vouchers}}
+        <tr>
+            <td>{{this.idvoucher}}</td>
+            <td>{{this.idtour}}</td>
+            <td>{{this.vouchername}}</td>
+            <td>{{this.descr}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.numberofpeople}}</td>
+            <td>{{this.nutrition}}</td>
+            <td>{{this.accommodation}}</td>
+            <td>{{this.hot}}</td>
+            <td>{{this.discount}}</td>
+            <td><a href="/vouchers/{{this.idvoucher}}">Details</a></td>
+            <td><a href="/vouchers/updateVoucher/{{this.idvoucher}}">Update</a></td>
+            <td><input type="button" onclick="deleteVouchersById({{this.idvoucher}})" value="Delete" /> </td>
+        </tr>
+        {{/each}}
+    </table>
+    <a href="/countries">GO TO LIST OF COUNTRIES</a>
+    </br>
+    <a href="/tours">GO TO LIST OF TOURS</a>
+    </br>
+</body>
+
+<script>
+    function deleteVouchersById(id) {
+        return fetch(`/vouchers/${id}`, {
+            method: 'DELETE'
+        }).then(response => location.reload())
+    }
+</script>
+<html>

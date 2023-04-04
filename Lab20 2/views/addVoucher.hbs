@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Voucher</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <h1>Add Voucher</h1>
+    <label>Tour Id</label>
+    <input id="idtour" name="idtour" value="" /><br><br>
+    <label>Vouchername </label>
+    <input id="vouchername" name="vouchername" value="" /><br><br>
+    <label>descr</label>
+    <input id="descr" name="descr" value="" /><br><br>
+    <label>price</label>
+    <input id="price" name="price" value="" /><br><br>
+    <label>numberofpeople</label>
+    <input id="numberofpeople" name="numberofpeople" value="" /><br><br>
+    <label>nutrition</label>
+    <input id="nutrition" name="nutrition" value="" /><br><br>
+    <label>accommodation</label>
+    <input id="accommodation" name="accommodation" value="" /><br><br>
+    <label>hot</label>
+    <input id="hot" name="hot" value="" /><br><br>
+    <label>discount</label>
+    <input id="discount" name="discount" value="" /><br><br>
+    <button onclick="addVoucher()">Add</button>
+    <input type="submit" value="Отправить" />
+    <a href="/vouchers">To list of tours</a>
+    <script>
+        function addVoucher() {
+            try {
+                const idtour = +document.getElementById("idtour").value;
+                const vouchername = document.getElementById("vouchername").value;
+                const descr = document.getElementById("descr").value;
+                const price = document.getElementById("price").value;
+                const numberofpeople = document.getElementById("numberofpeople").value;
+                const nutrition = document.getElementById("nutrition").value;
+                const accommodation = document.getElementById("accommodation").value;
+                const hot = document.getElementById("hot").value;
+                const discount = document.getElementById("discount").value;
+
+                fetch(`/vouchers/`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        idtour,
+                        vouchername, descr,
+                        price, numberofpeople,
+                        nutrition, accommodation,
+                        hot, discount
+                    }),
+                    headers: { "Content-Type": "application/json" }
+                })
+                    .then(response => {
+                        console.log('here')
+                        return response.json()
+                    })
+                    .then(data => {
+                        console.log(data);
+                        alert("Voucher added successfully!");
+                        window.location.href = "/vouchers";
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("Failed to add tour");
+                    });
+            }
+            catch (e) {
+                console.log(e)
+            }
+        } 
+    </script>
+</body>
+<html>

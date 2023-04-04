@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Order</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <h1>Add Order</h1>
+    <label>idvoucher</label>
+    <input id="idvoucher" name="idvoucher" value="" /><br><br>
+    <label>customer</label>
+    <input id="customer" name="customer" value="" /><br><br>
+    <label>pay</label>
+    <input id="pay" name="pay" value="" /><br><br>
+    <button onclick="addOrder()">Add</button>
+    <a href="/orders">To list of orers</a>
+
+    <script>
+        function addOrder() {
+            try {
+                const idvoucher = +document.getElementById("idvoucher").value;
+                const customer = document.getElementById("customer").value;
+                const pay = document.getElementById("pay").value;
+
+                fetch(`/orders/`, {
+                    method: "POST",
+                    body: JSON.stringify({ idvoucher, customer, pay }),
+                    headers: { "Content-Type": "application/json" }
+                })
+                    .then(response => {
+                        console.log('here')
+                        return response.json()
+                    })
+                    .then(data => {
+                        console.log(data);
+                        alert("Order added successfully!");
+                        window.location.href = "/orders";
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("Failed to add order");
+                    });
+            }
+            catch (e) {
+                console.log(e)
+            }
+        } 
+    </script>
+</body>
+<html>

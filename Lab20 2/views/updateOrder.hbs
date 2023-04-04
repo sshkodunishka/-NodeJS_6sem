@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Update</title>
+    <meta charset="utf-8" />
+</head>
+
+<body> 
+    <h1>Update order</h1> 
+        <label>ID</label> 
+        <input id="idInput" name="idorder" value="{{order.idorder}}" /><br><br> 
+        <label>idvoucher</label> 
+        <input id="idvoucher" name="idvoucher" value="{{order.idvoucher}}" /><br><br> 
+        <label>customer</label> 
+        <input id="customer" name="customer" value="{{order.customer}}" /><br><br> 
+        <label>pay</label> 
+        <input id="pay" name="pay" value="{{order.pay}}" /><br><br> 
+        <button onclick="updateOrder()">Update</button> 
+    <a href="/orders">Back to List of orders</a> 
+ 
+    <script> 
+        function updateOrder() { 
+          try{
+            const idorder = +document.getElementById("idInput").value; 
+            const idvoucher = document.getElementById("idvoucher").value; 
+            const customer = document.getElementById("customer").value; 
+            const pay = document.getElementById("pay").value; 
+ 
+            fetch(`/orders/`, { 
+                method: "PUT", 
+                body: JSON.stringify({ idorder, idvoucher, customer, pay }), 
+                headers: { "Content-Type": "application/json" } 
+            }) 
+            .then(response => {
+              console.log('here')
+              return response.json()
+            }) 
+            .then(data => { 
+                console.log(data); 
+                alert("Order updated successfully!"); 
+                window.location.href = "/orders"; 
+            }) 
+            .catch(error => { 
+                console.error(error); 
+                alert("Failed to update order"); 
+            }); 
+          }
+          catch(e){
+            console.log(e)
+          }
+        } 
+    </script> 
+</body>
+<html>
