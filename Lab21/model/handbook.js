@@ -57,7 +57,7 @@ function nextId() {
     return data[data.length - 1].id + 1
 }
 function save() {
-    fs.writeFile(__dirname + '/handbook.json', JSON.stringify(data, null, '  '), err => {
+    fs.writeFile('./handbook.json', JSON.stringify(data, null, '  '), err => {
         if (err) {
             throw err;
         }

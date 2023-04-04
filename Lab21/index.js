@@ -2,8 +2,8 @@ const express = require('express');
 const hbs = require('express-handlebars').create({
     extname: 'hbs',
     defaultLayout: 'main',
-    layoutsDir: __dirname + '/views/layouts',
-    partialsDir: __dirname + '/views/partials',
+    layoutsDir:   './views/layouts',
+    partialsDir: './views/partials',
     helpers: {
         backBtn: () => {
             return `<button type='button' onclick="window.location.href = '/'">Back</button>`
