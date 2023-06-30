@@ -17,6 +17,7 @@
     <label>Desctiption</label>
     <input id="descr" name="descr" value="" /><br><br>
     <button onclick="addOperator()">Add</button>
+    <div class="error"></div>
     <a href="/tours">To list of tours</a>
     <script>
         function addOperator() {
@@ -25,7 +26,15 @@
                 const idcountry = +document.getElementById("idcountry").value;
                 const tourname = document.getElementById("tourname").value;
                 const descr = document.getElementById("descr").value;
-
+                const error = document.getElementsByClassName('error')[0];
+                if (!/[a-zA-Z]$/.test(tourname)||!/[a-zA-Z]$/.test(descr)) {
+                    error.innerHTML = 'Wrong names';
+                    return;
+                }
+                if (!/[0-9]$/.test(idoperator)||  !/[0-9]$/.test(idcountry)) {
+                    error.innerHTML = 'Wrong ids';
+                    return;
+                }
                 fetch(`/tours/`, {
                     method: "POST",
                     body: JSON.stringify({ idoperator, idcountry, tourname, descr }),

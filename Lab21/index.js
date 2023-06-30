@@ -23,6 +23,6 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use('/', telephoneRoute);
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log('Started');
+app.listen(3000, () => {
+    console.log(`Started `);
 });

@@ -2,51 +2,54 @@
 <html>
 
 <head>
-    <title>Update</title>
-    <meta charset="utf-8" />
+  <title>Update</title>
+  <meta charset="utf-8" />
 </head>
 
-<body> 
-    <h1>Update Operator</h1> 
-        <label>ID</label> 
-        <input id="idInput" name="idoperator" value="{{operator.idoperator}}" /><br><br> 
-        <label>Operator</label> 
-        <input id="operatorInput" name="name" value="{{operator.name}}" /><br><br> 
-        <label>Phone</label> 
-        <input id="phoneInput" name="phonenumber" value="{{operator.phonenumber}}" /><br><br> 
-        <button onclick="updateOperator()">Update</button> 
-    <a href="/operators">Back to List of Tours</a> 
- 
-    <script> 
-        function updateOperator() { 
-          try{
-            const idoperator = +document.getElementById("idInput").value; 
-            const name = document.getElementById("operatorInput").value; 
-            const phonenumber = document.getElementById("phoneInput").value; 
- 
-            fetch(`/operators/`, { 
-                method: "PUT", 
-                body: JSON.stringify({ idoperator, name, phonenumber }), 
-                headers: { "Content-Type": "application/json" } 
-            }) 
-            .then(response => {
-              console.log('here')
-              return response.json()
-            }) 
-            .then(data => { 
-                console.log(data); 
-                alert("Operator updated successfully!"); 
-                window.location.href = "/operators"; 
-            }) 
-            .catch(error => { 
-                console.error(error); 
-                alert("Failed to update operator"); 
-            }); 
-          }
-          catch(e){
-            console.log(e)
-          }
-        } 
-    </script> 
+<body>
+  <h1>Update Operator</h1>
+  <label>ID</label>
+  <input id="idInput" name="idoperator" value="{{operator.idoperator}}" /><br><br>
+  <label>Operator</label>
+  <input id="operatorInput" name="name" value="{{operator.name}}" /><br><br>
+  <label>Phone</label>
+  <input id="phoneInput" name="phonenumber" value="{{operator.phonenumber}}" /><br><br>
+  <div class="error"></div>
+  <button onclick="updateOperator()">Update</button>
+  <a href="/operators">Back to List of Tours</a>
+
+  <script>
+    function updateOperator() {
+      try {
+        const idoperator = +document.getElementById("idInput").value;
+        const name = document.getElementById("operatorInput").value;
+        const phonenumber = document.getElementById("phoneInput").value;
+        const error = document.getElementsByClassName('error')[0];
+
+
+        fetch(`/operators/`, {
+          method: "PUT",
+          body: JSON.stringify({ idoperator, name, phonenumber }),
+          headers: { "Content-Type": "application/json" }
+        })
+          .then(response => {
+            console.log('here')
+            return response.json()
+          })
+          .then(data => {
+            console.log(data);
+            alert("Operator updated successfully!");
+            window.location.href = "/operators";
+          })
+          .catch(error => {
+            console.error(error);
+            alert("Failed to update operator");
+          });
+      }
+      catch (e) {
+        console.log(e)
+      }
+    } 
+  </script>
 </body>
 <html>

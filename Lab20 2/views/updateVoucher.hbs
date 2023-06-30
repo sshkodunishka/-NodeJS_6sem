@@ -29,6 +29,7 @@
   <label>discount</label>
   <input id="discount" name="discount" value="{{voucher.discount}}" /><br><br>
   <button onclick="updateOperator()">Update</button>
+  <div class="error"></div>
   <a href="/vouchers">Back to List of Vouchers</a>
 
   <script>
@@ -44,13 +45,26 @@
         const accommodation = document.getElementById("accommodation").value;
         const hot = document.getElementById("hot").value;
         const discount = document.getElementById("discount").value;
+        const error = document.getElementsByClassName('error')[0];
 
+        if (!/[a-zA-Z]$/.test(vouchername) || !/[a-zA-Z]$/.test(descr)) {
+          error.innerHTML = 'Wrong country';
+          return;
+        }
+        if (!/[0-9]$/.test(idtour)) {
+          error.innerHTML = 'Wrong id';
+          return;
+        }
+        if (!/[0,1]{1}$/.test(nutrition) || !/[0,1]{1}$/.test(accommodation) || !/[0,1]{1}$/.test(hot)) {
+          error.innerHTML = 'Wrong data';
+          return;
+        }
         fetch(`/vouchers/`, {
           method: "PUT",
           body: JSON.stringify({
             idvoucher, idtour,
             vouchername, descr,
-            price, numberofpeople, 
+            price, numberofpeople,
             nutrition, accommodation,
             hot, discount
           }),

@@ -1,0 +1,1 @@
+emcc  -o func.html -s WASM=1 functions.c

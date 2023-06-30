@@ -89,6 +89,7 @@ let server = http.createServer((req, res) => {
                     res.end(JSON.stringify(auditoriums))
                 }
             }
+            attributes:[[sequelize.fn('COUNT', sequelize.col('pulpit')),'count_pulpit']]
             //------------------------------------POST
             else if (req.method === "POST") {
                 if (url.parse(req.url).pathname === "/api/faculties") {

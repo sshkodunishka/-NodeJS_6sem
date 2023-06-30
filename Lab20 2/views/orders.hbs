@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>List of orders</title>
     <meta charset="utf-8" />
 </head>
+
 <body>
-<a href="/orders/addOrder">Add order</a>
-</br>
+    <a href="/orders/addOrder">Add order</a>
+    </br>
     <h1>List of orders</h1>
-     <table>
-         <tr><th>ID</th><th>idvoucher</th><th>customer</th><th>pay</th></tr>
-         {{#each orders}}
-            <tr>
-                <td>{{this.idorder}}</td>
-                <td>{{this.idvoucher}}</td>
-                <td>{{this.customer}}</td>
-                <td>{{this.pay}}</td>
-                <td><a href="/orders/{{this.idorder}}">Details</a></td>
-                <td><a href="/orders/updateOrder/{{this.idorder}}">Update</a></td>
-                <td><input type="button" onclick="deleteOrderById({{this.idorder}})" value="Delete" /> </td>
-                </tr>
-         {{/each}}
-     </table>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>idvoucher</th>
+            <th>customer</th>
+            <th>pay</th>
+        </tr>
+        {{#each orders}}
+        <tr>
+            <td>{{this.idorder}}</td>
+            <td>{{this.idvoucher}}</td>
+            <td>{{this.customer}}</td>
+            <td>{{this.pay}}</td>
+            <td><a href="/orders/{{this.idorder}}">Details</a></td>
+            <td><a href="/orders/updateOrder/{{this.idorder}}">Update</a></td>
+            <td><input type="button" onclick="deleteOrderById({{this.idorder}})" value="Delete" /> </td>
+        </tr>
+        {{/each}}
+    </table>
 </body>
 <a href="/operators">GO TO LIST OF OPERATORS</a>
 </br>
@@ -29,16 +36,18 @@
 </br>
 <a href="/countries">GO TO LIST OF COUNTRIES</a>
 </br>
+<a href="/vouchers">GO TO LIST OF VOUCHERS</a>
+</br>
 <script>
     function deleteOrderById(id) {
         return fetch(`/orders/${id}`, {
-             method: 'DELETE'
+            method: 'DELETE'
         }).then(response => location.reload())
     }
 
     function updateOrderById(id) {
         return fetch(`/orders/${id}`, {
-             method: 'DELETE'
+            method: 'DELETE'
         }).then(response => location.reload())
     }
 </script>

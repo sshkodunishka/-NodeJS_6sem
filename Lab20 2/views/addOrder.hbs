@@ -15,6 +15,7 @@
     <label>pay</label>
     <input id="pay" name="pay" value="" /><br><br>
     <button onclick="addOrder()">Add</button>
+    <div class="error"></div>
     <a href="/orders">To list of orers</a>
 
     <script>
@@ -23,7 +24,15 @@
                 const idvoucher = +document.getElementById("idvoucher").value;
                 const customer = document.getElementById("customer").value;
                 const pay = document.getElementById("pay").value;
-
+                const error = document.getElementsByClassName('error')[0];
+                if (!/[a-zA-Z]$/.test(customer)) {
+                    error.innerHTML = 'Wrong customer';
+                    return;
+                }
+                if (!/[0,1]{1}$/.test(pay) || !/[0-9]$/.test(idvoucher)) {
+                    error.innerHTML = 'Wrong data';
+                    return;
+                }
                 fetch(`/orders/`, {
                     method: "POST",
                     body: JSON.stringify({ idvoucher, customer, pay }),

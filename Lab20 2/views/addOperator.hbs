@@ -13,13 +13,19 @@
     <label>Phone</label>
     <input id="phoneInput" name="phonenumber" value="" /><br><br>
     <button onclick="addOperator()">Add</button>
+    <div class="error"></div>
     <a href="/operators">To list of operators</a>
     <script>
         function addOperator() {
             try {
                 const name = document.getElementById("operatorInput").value;
                 const phonenumber = document.getElementById("phoneInput").value;
+                const error = document.getElementsByClassName('error')[0];
 
+                if (!/[0-9]$/.test(phonenumber)) {
+                    error.innerHTML = 'Wrong phonenumber';
+                    return;
+                }
                 fetch(`/operators/`, {
                     method: "POST",
                     body: JSON.stringify({ name, phonenumber }),

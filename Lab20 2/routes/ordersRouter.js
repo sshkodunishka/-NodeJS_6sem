@@ -3,8 +3,8 @@ const orderController = require("../controllers/ordersController");
 const orderRouter = express.Router();
 
 orderRouter.get("/", orderController.getOrders)
-orderRouter.get("/:id", orderController.getOrdersById)
 orderRouter.get("/addOrder", orderController.addOrderHTML)
+orderRouter.get("/:id", orderController.getOrdersById)
 orderRouter.get("/updateOrder/:id", orderController.updateOrderHTML)
 orderRouter.post("/", orderController.addOrder)
 orderRouter.put("/", orderController.updateOrder)

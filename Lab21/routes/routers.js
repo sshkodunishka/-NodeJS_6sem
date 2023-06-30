@@ -18,7 +18,6 @@ router.get('/add', (request, response) => {
         {
             unlockOthers: false,
             phones: model.getPhones(),
-            helpers: { goBack: () => 'window.location.href = \'/\'' }
         });
 });
 router.get('/update', (request, response) => {
@@ -27,7 +26,6 @@ router.get('/update', (request, response) => {
             unlockOthers: false,
             phones: model.getPhones(),
             targetPhone: model.getPhoneById(request.query.id),
-            helpers: { goBack: () => 'window.location.href = \'/\'' }
         });
 });
 

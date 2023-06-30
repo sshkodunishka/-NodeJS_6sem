@@ -28,6 +28,7 @@
     <input id="discount" name="discount" value="" /><br><br>
     <button onclick="addVoucher()">Add</button>
     <input type="submit" value="Отправить" />
+    <div class="error"></div>
     <a href="/vouchers">To list of tours</a>
     <script>
         function addVoucher() {
@@ -41,7 +42,20 @@
                 const accommodation = document.getElementById("accommodation").value;
                 const hot = document.getElementById("hot").value;
                 const discount = document.getElementById("discount").value;
+                const error = document.getElementsByClassName('error')[0];
 
+                if (!/[a-zA-Z]$/.test(vouchername) || !/[a-zA-Z]$/.test(descr)) {
+                    error.innerHTML = 'Wrong country';
+                    return;
+                }
+                if (!/[0-9]$/.test(idtour)) {
+                    error.innerHTML = 'Wrong id';
+                    return;
+                }
+                if (!/[0,1]{1}$/.test(nutrition) || !/[0,1]{1}$/.test(accommodation) || !/[0,1]{1}$/.test(hot)) {
+                    error.innerHTML = 'Wrong data';
+                    return;
+                }
                 fetch(`/vouchers/`, {
                     method: "POST",
                     body: JSON.stringify({

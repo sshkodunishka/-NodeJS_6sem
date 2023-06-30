@@ -1,0 +1,16 @@
+https://kb.firedaemon.com/support/solutions/articles/4000121705-openssl-3-1-3-0-and-1-1-1-binary-distributions-for-microsoft-windows#OpenSSL-Windows-Installer-Installation-Instructions
+https://superuser.com/questions/1451895/err-ssl-key-usage-incompatible-solution
+
+CA
+openssl genrsa -des3 -out CA.key 2048 --- генерирует rsa ключ 
+passphrase --- lab26
+
+set OPENSSL_CONF=C:\OpenSSL\ssl\openssl.cnf
+
+openssl req -x509 -new -days 700 -sha256 -key ./CA.key -sha256 -out ./CA.crt
+
+RESOURCE
+openssl genrsa -out ./LAB.key 2048
+openssl req -new -key ./LAB.key -out ./LAB.csr -sha256 -config ./LAB.cfg -- генерация запроса на сертификат
+
+openssl x509 -req -days 365 -sha256 -in ./LAB.csr -CA ./CA.crt -CAkey ./CA.key -CAcreateserial -out ./LAB.crt -extensions v3_req -extfile ./LAB.cfg
